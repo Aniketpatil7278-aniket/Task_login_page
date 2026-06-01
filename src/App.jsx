@@ -2,7 +2,9 @@ import { Routes, Route, Navigate } from "react-router-dom";
 
 
 import LoginPage from "./pages/Login/LoginPage";
-// import ProtectedRoute from "./routes/ProtectedRoute";
+import SignUpPage from "./pages/Signup/SignUpPage";
+import ProtectedRoute from "./routes/ProtectedRoute";
+import Dashboard from "./pages/Dashboard/DashboardPage";
 import { useSelector } from "react-redux";
 
 function App() {
@@ -21,6 +23,16 @@ function App() {
             ) : (
               <LoginPage />
             )
+          }
+        />
+        <Route path="/signup" element={<SignUpPage />} />
+
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
           }
         />
       </Routes>

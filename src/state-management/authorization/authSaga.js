@@ -2,26 +2,28 @@
 
 import { takeLatest, put, call } from "redux-saga/effects";
 
-import { LOGIN_REQUEST, LOGIN_SUCCESS, LOGIN_FAILURE } from "./authActions";
+import {
+  LOGIN_REQUEST,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  LOGOUT_REQUEST,
+  LOGOUT_SUCCESS,
+} from "./authActions";
 
 import { loginUserApi } from "../../services/authApi";
 
-// LOGIN SAGA
+// LOGIN
 function* loginUser(action) {
   try {
-    // API CALL
     const user = yield call(loginUserApi, action.payload);
 
-    // SAVE SESSION
     sessionStorage.setItem("user", JSON.stringify(user));
 
-    // SUCCESS
     yield put({
       type: LOGIN_SUCCESS,
       payload: user,
     });
   } catch (error) {
-    // FAILURE
     yield put({
       type: LOGIN_FAILURE,
       payload: error.message || "Login Failed",
@@ -29,7 +31,18 @@ function* loginUser(action) {
   }
 }
 
-// WATCHER SAGA
+// LOGOUT
+function* logoutUser() {
+  sessionStorage.removeItem("user");
+
+  yield put({
+    type: LOGOUT_SUCCESS,
+  });
+}
+
+// WATCHERS
 export default function* authSaga() {
   yield takeLatest(LOGIN_REQUEST, loginUser);
+
+  yield takeLatest(LOGOUT_REQUEST, logoutUser);
 }

@@ -2,8 +2,7 @@
 
 import { all } from "redux-saga/effects";
 
-import authSaga from "./authurization/authSaga";
-
+import authSaga from "./authorization/authSaga";
 export default function* rootSaga() {
   yield all([authSaga()]);
 }

@@ -4,12 +4,16 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  LOGOUT,
+  LOGOUT_SUCCESS,
 } from "./authActions";
+
+const storedUser = JSON.parse(sessionStorage.getItem("user"));
+
 const initialState = {
-  user: null,
+  user: storedUser || null,
   loading: false,
   error: null,
+  isAuthenticated: !!storedUser,
 };
 
 const authReducer = (state = initialState, action) => {
@@ -18,6 +22,7 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         loading: true,
+        error: null,
       };
 
     case LOGIN_SUCCESS:
@@ -25,22 +30,24 @@ const authReducer = (state = initialState, action) => {
         ...state,
         loading: false,
         user: action.payload,
+        isAuthenticated: true,
+        error: null,
       };
-     // LOGIN FAILURE
+
     case LOGIN_FAILURE:
-        return {
-         ...state,
+      return {
+        ...state,
         loading: false,
         error: action.payload,
       };
-      
-    // LOGOUT
-    case LOGOUT:
+
+    case LOGOUT_SUCCESS:
       return {
         ...state,
         user: null,
-        isAuthenticated: false,
+        loading: false,
         error: null,
+        isAuthenticated: false,
       };
 
     default:

@@ -6,45 +6,39 @@ const BASE_URL =
   "https://my-json-server.typicode.com/Aniketpatil7278-aniket/json-server-api/users";
 
 export const loginUserApi = async (userData) => {
-  const response = await axios.get(BASE_URL);
+  try {
+    // Validation
+    if (!userData?.userid?.trim()) {
+      throw new Error("User ID is required");
+    }
 
-  const user = response.data.find(
-    (item) => item.email.toLowerCase() === userData.email.toLowerCase(),
-  );
+    if (!userData?.password?.trim()) {
+      throw new Error("Password is required");
+    }
 
-  if (user && user.password === userData.password) {
-    return user;
+    // API Call
+    const response = await axios.get(BASE_URL);
+
+    const userid = userData.userid.trim().toLowerCase();
+
+    // Find User
+    const user = response.data.find(
+      (item) => item.userid.toLowerCase() === userid,
+    );
+
+    if (!user) {
+      throw new Error("User ID not found");
+    }
+
+    // Password Check
+    if (user.password !== userData.password) {
+      throw new Error("Invalid Password");
+    }
+
+    // const { password: _password, ...safeUser } = user;
+
+    // return safeUser;
+  } catch (error) {
+    throw new Error(error.message || "Login Failed", { cause: error });
   }
-
-  throw new Error("Invalid Email or Password");
 };
-
-// import { call, put, takeLatest } from "redux-saga/effects";
-// import axios from "axios";
-
-// function* loginSaga(action) {
-//   try {
-//     const response = yield call(
-//       axios.get,
-//       "https://my-json-server.typicode.com/Aniketpatil7278-aniket/json-server-api/users",
-//     );
-
-//     const user = response.data.find((u) => u.email === action.payload.email);
-
-//     yield put({
-//       type: "LOGIN_SUCCESS",
-//       payload: user,
-//     });
-
-//     sessionStorage.setItem("user", JSON.stringify(user));
-//   } catch (error) {
-//     yield put({
-//       type: "LOGIN_FAILURE",
-//       payload: error.message,
-//     });
-//   }
-// }
-
-// export default function* authSaga() {
-//   yield takeLatest("LOGIN_REQUEST", loginSaga);
-// }
