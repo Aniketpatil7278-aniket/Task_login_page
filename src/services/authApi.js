@@ -35,9 +35,6 @@ export const loginUserApi = async (userData) => {
       throw new Error("Invalid Password");
     }
 
-    // const { password: _password, ...safeUser } = user;
-
-    // return safeUser;
   } catch (error) {
     throw new Error(error.message || "Login Failed", { cause: error });
   }

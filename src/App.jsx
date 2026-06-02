@@ -25,14 +25,15 @@ function App() {
             )
           }
         />
+
+        {/*Sigup page */}
         <Route path="/signup" element={<SignUpPage />} />
 
+        {/*Dashboard page  */}
         <Route
           path="/dashboard"
           element={
-            <ProtectedRoute>
-              <Dashboard />
-            </ProtectedRoute>
+            <ProtectedRoute> <Dashboard /> </ProtectedRoute>
           }
         />
       </Routes>

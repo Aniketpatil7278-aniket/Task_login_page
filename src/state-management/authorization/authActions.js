@@ -7,7 +7,7 @@ export const LOGIN_FAILURE = "LOGIN_FAILURE";
 export const LOGOUT_REQUEST = "LOGOUT_REQUEST"; 
 export const LOGOUT_SUCCESS = "LOGOUT_SUCCESS";
 
-// LOGIN REQUEST
+// LOGIN REQUEST 
 export const loginRequest = (data) => ({
   type: LOGIN_REQUEST,
   payload: data,
