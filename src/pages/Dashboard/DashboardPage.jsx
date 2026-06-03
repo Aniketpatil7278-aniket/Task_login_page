@@ -1,48 +1,26 @@
-import { Button, Paper, Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
-import { logoutRequest } from "../../state-management/authorization/authActions";
+import { useSelector } from "react-redux";
+
+import Header from "../../components/Header/Header";
+import Sidebar from "../../components/Sidebar/Sidebar";
 
 const Dashboard = () => {
-  const dispatch = useDispatch();
-
   const { user } = useSelector((state) => state.auth);
 
-  const handleLogout = () => {
-    dispatch(logoutRequest());
-  };
-
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <Paper
-        elevation={3}
-        sx={{
-          p: 5,
-          minWidth: 400,
-          textAlign: "center",
-          borderRadius: 4,
-        }}
-      >
-        <Typography variant="h4" fontWeight="bold">
-          Dashboard
-        </Typography>
+    <div className="flex min-h-screen bg-gray-100">
+      {/* Sidebar */}
+      <Sidebar />
 
-        <Typography variant="h6" sx={{ mt: 2 }}>
-          Welcome {user?.userid}
-        </Typography>
+      {/* Main Content */}
+      <div className="flex-1 p-6">
+        <Header user={user} />
 
-        <Typography color="text.secondary" sx={{ mt: 1 }}>
-          You have successfully logged in.
-        </Typography>
+        <div className="mt-6 bg-white rounded-3xl p-8 shadow-sm">
+          <h1 className="text-3xl font-bold">Welcome {user?.userid}</h1>
 
-        <Button
-          variant="contained"
-          color="error"
-          sx={{ mt: 4 }}
-          onClick={handleLogout}
-        >
-          Logout
-        </Button>
-      </Paper>
+          <p className="text-gray-500 mt-2">You have successfully logged in.</p>
+        </div>
+      </div>
     </div>
   );
 };
