@@ -1,6 +1,7 @@
 // src/components/Dashboard/Sidebar.jsx
 
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { logoutRequest } from "../../state-management/authorization/authActions";
 import logo from "../../assets/logo1.png";
 
@@ -25,6 +26,7 @@ import {
 
 const Sidebar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(logoutRequest());
@@ -34,14 +36,18 @@ const Sidebar = () => {
     {
       name: "Dashboard",
       icon: <LayoutDashboard size={20} />,
+      path: "/dashboard",
       active: true,
     },
     {
-      name: "Users",
+      name: "Admission",
+      path: "/admission",
       icon: <Users size={20} />,
     },
     {
       name: "Reports",
+      path: "/demo",
+
       icon: <FileText size={20} />,
     },
     {
@@ -67,26 +73,25 @@ const Sidebar = () => {
       {/* Top Section */}
       <Box>
         {/* Logo Section */}
-        <Box
-          className="flex flex-col items-center justify-center px-6 py-8">
-          <div
-            className="w-20 h-20 md:w-24 md:h-24 bg-white rounded-2xl shadow-lg flex items-center justify-center p-2 mb-4">
-          
+        <Box className="flex flex-col items-center justify-center px-6 py-8">
+          <div className="w-20 h-20 md:w-24 md:h-24 bg-white rounded-2xl shadow-lg flex items-center justify-center p-2 mb-4">
             <img
               src={logo}
               alt="MediConnect Logo"
-              className="w-full h-full object-contain"/>
-             
+              className="w-full h-full object-contain"
+            />
           </div>
           <Typography
             variant="h5"
-            className=" !text-white !font-bold text-center">
+            className=" !text-white !font-bold text-center"
+          >
             MediConnect
           </Typography>
 
           <Typography
             variant="body2"
-            className=" !text-slate-400 text-center mt-2">
+            className=" !text-slate-400 text-center mt-2"
+          >
             Healthcare Ecosystem
           </Typography>
         </Box>
@@ -98,6 +103,7 @@ const Sidebar = () => {
           {menuItems.map((item) => (
             <ListItemButton
               key={item.name}
+              onClick={() => item.path && navigate(item.path)}
               className={`!rounded-xl !mb-3 !px-4 !py-3 transition-all duration-300 hover:!translate-x-1
                 ${
                   item.active
@@ -117,10 +123,14 @@ const Sidebar = () => {
 
               <ListItemText
                 primary={item.name}
-                primaryTypographyProps={{
-                  color: item.active ? "#ffffff" : "#CBD5E1",
-                  fontWeight: item.active ? 600 : 500,
-                  fontSize: "0.95rem",
+                slotProps={{
+                  primary: {
+                    sx: {
+                      color: item.active ? "#ffffff" : "#CBD5E1",
+                      fontWeight: item.active ? 600 : 500,
+                      fontSize: "0.95rem",
+                    },
+                  },
                 }}
               />
             </ListItemButton>

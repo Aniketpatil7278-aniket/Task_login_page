@@ -7,8 +7,17 @@ import {
   LOGOUT_SUCCESS,
 } from "./authActions";
 
-const storedUser = JSON.parse(sessionStorage.getItem("user"));
+let storedUser = null;
 
+try {
+  const userData = sessionStorage.getItem("user");
+
+  if (userData && userData !== "undefined") {
+    storedUser = JSON.parse(userData);
+  }
+} catch (error) {
+  console.error("Invalid user data in sessionStorage:", error);
+}
 const initialState = {
   user: storedUser || null,
   loading: false,

@@ -9,7 +9,7 @@ export const loginUserApi = async (userData) => {
   try {
     // Validation
     if (!userData?.userid?.trim()) {
-      throw new Error("User ID is required");
+      throw new Error("User ID or Phone Number is required");
     }
 
     if (!userData?.password?.trim()) {
@@ -19,15 +19,17 @@ export const loginUserApi = async (userData) => {
     // API Call
     const response = await axios.get(BASE_URL);
 
-    const userid = userData.userid.trim().toLowerCase();
+    const loginValue = userData.userid.trim().toLowerCase();
 
-    // Find User
+    // Find user by UserID OR Phone Number
     const user = response.data.find(
-      (item) => item.userid.toLowerCase() === userid,
+      (item) =>
+        item.userid.toLowerCase() === loginValue ||
+        String(item.phone) === loginValue,
     );
 
     if (!user) {
-      throw new Error("User ID not found");
+      throw new Error("User ID or Phone Number not found");
     }
 
     // Password Check
@@ -35,6 +37,7 @@ export const loginUserApi = async (userData) => {
       throw new Error("Invalid Password");
     }
 
+    return user;
   } catch (error) {
     throw new Error(error.message || "Login Failed", { cause: error });
   }
