@@ -1,7 +1,7 @@
-// src/components/Dashboard/Sidebar.jsx
+// src/components/Sidebar/Sidebar.jsx
 
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { logoutRequest } from "../../state-management/authorization/authActions";
 import logo from "../../assets/logo1.png";
 
@@ -15,18 +15,19 @@ import {
 
 import {
   Box,
-  Typography,
   Button,
   Divider,
   List,
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Typography,
 } from "@mui/material";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleLogout = () => {
     dispatch(logoutRequest());
@@ -35,9 +36,8 @@ const Sidebar = () => {
   const menuItems = [
     {
       name: "Dashboard",
-      icon: <LayoutDashboard size={20} />,
       path: "/dashboard",
-      active: true,
+      icon: <LayoutDashboard size={20} />,
     },
     {
       name: "Admission",
@@ -47,11 +47,11 @@ const Sidebar = () => {
     {
       name: "Reports",
       path: "/demo",
-
       icon: <FileText size={20} />,
     },
     {
       name: "Settings",
+      path: "/settings",
       icon: <Settings size={20} />,
     },
   ];
@@ -59,101 +59,113 @@ const Sidebar = () => {
   return (
     <Box
       className="
-        h-screen w-full max-w-[280px] bg-gradient-to-b  from-slate-900 via-slate-800 
-        to-slate-900
+        fixed
+        left-0
+        top-0
+        w-[280px]
+        h-screen
         flex
         flex-col
         justify-between
+        bg-gradient-to-b
+        from-slate-900
+        via-slate-800
+        to-slate-900
         border-r
         border-slate-700
         shadow-2xl
-        overflow-hidden
       "
     >
       {/* Top Section */}
-      <Box>
-        {/* Logo Section */}
-        <Box className="flex flex-col items-center justify-center px-6 py-8">
-          <div className="w-20 h-20 md:w-24 md:h-24 bg-white rounded-2xl shadow-lg flex items-center justify-center p-2 mb-4">
+      <div>
+        {/* Logo */}
+        <div className="flex flex-col items-center justify-center py-8 px-6">
+          <div className="w-24 h-24 bg-white rounded-2xl shadow-lg flex items-center justify-center p-2 mb-4">
             <img
               src={logo}
-              alt="MediConnect Logo"
+              alt="MediConnect"
               className="w-full h-full object-contain"
             />
           </div>
-          <Typography
-            variant="h5"
-            className=" !text-white !font-bold text-center"
-          >
+
+          <Typography variant="h5" className="!text-white !font-bold">
             MediConnect
           </Typography>
 
-          <Typography
-            variant="body2"
-            className=" !text-slate-400 text-center mt-2"
-          >
+          <Typography variant="body2" className="!text-slate-400 mt-2">
             Healthcare Ecosystem
           </Typography>
-        </Box>
+        </div>
 
         <Divider sx={{ borderColor: "#334155" }} />
 
-        {/* Menu Section */}
-        <List className="px-3 py-5">
-          {menuItems.map((item) => (
-            <ListItemButton
-              key={item.name}
-              onClick={() => item.path && navigate(item.path)}
-              className={`!rounded-xl !mb-3 !px-4 !py-3 transition-all duration-300 hover:!translate-x-1
-                ${
-                  item.active
-                    ? "!bg-blue-600 hover:!bg-blue-700 shadow-lg"
-                    : "hover:!bg-slate-700"
-                }
-              `}
-            >
-              <ListItemIcon
-                sx={{
-                  color: item.active ? "#ffffff" : "#CBD5E1",
-                  minWidth: "40px",
-                }}
+        {/* Menu */}
+        <List className="px-3 py-4">
+          {menuItems.map((item) => {
+            const isActive = location.pathname === item.path;
+
+            return (
+              <ListItemButton
+                key={item.name}
+                onClick={() => navigate(item.path)}
+                className={`
+                  !rounded-xl
+                  !mb-3
+                  !px-4
+                  !py-3
+                  transition-all
+                  duration-300
+                  hover:translate-x-1
+                  ${
+                    isActive
+                      ? "!bg-blue-600 hover:!bg-blue-700"
+                      : "hover:!bg-slate-700"
+                  }
+                `}
               >
-                {item.icon}
-              </ListItemIcon>
+                <ListItemIcon
+                  sx={{
+                    color: "#fff",
+                    minWidth: "40px",
+                  }}
+                >
+                  {item.icon}
+                </ListItemIcon>
 
-              <ListItemText
-                primary={item.name}
-                slotProps={{
-                  primary: {
-                    sx: {
-                      color: item.active ? "#ffffff" : "#CBD5E1",
-                      fontWeight: item.active ? 600 : 500,
-                      fontSize: "0.95rem",
-                    },
-                  },
-                }}
-              />
-            </ListItemButton>
-          ))}
+                <ListItemText
+                  primary={
+                    <Typography
+                      sx={{
+                        color: "#fff",
+                        fontWeight: 500,
+                      }}
+                    >
+                      {item.name}
+                    </Typography>
+                  }
+                />
+              </ListItemButton>
+            );
+          })}
         </List>
-      </Box>
+      </div>
 
-      {/* Logout Section */}
-      <Box className="p-4">
+      {/* Logout */}
+      <div className="p-4">
         <Button
           fullWidth
           variant="contained"
           color="error"
           startIcon={<LogOut size={18} />}
           onClick={handleLogout}
-          className="!h-12 md:!h-14 !rounded-xl !font-semibold !text-base"
+          className="!h-14 !rounded-xl !font-semibold"
           sx={{
             textTransform: "none",
           }}
         >
           Logout
         </Button>
-      </Box>
+      </div>
     </Box>
   );
 };

@@ -7,12 +7,10 @@ const Dashboard = () => {
   const { user } = useSelector((state) => state.auth);
 
   return (
-    <div className="flex min-h-screen bg-gray-100">
-      {/* Sidebar */}
+    <div className="min-h-screen bg-gray-100">
       <Sidebar />
 
-      {/* Main Content */}
-      <div className="flex-1 p-6">
+      <div className="ml-[280px] p-6">
         <Header user={user} />
 
         <div className="mt-6 bg-white rounded-3xl p-8 shadow-sm">

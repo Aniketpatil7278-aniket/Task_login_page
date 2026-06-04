@@ -44,14 +44,24 @@ function App() {
         />
 
         {/*Admission page  */}
-        <Route path="/admission"
-      element={
-        <ProtectedRoute>
-          <AdmissionPage />
-        </ProtectedRoute>
-      }/>
+        <Route
+          path="/admission"
+          element={
+            <ProtectedRoute>
+              <AdmissionPage />
+            </ProtectedRoute>
+          }
+        />
 
-      
+          {/* 404 page error   */}
+        <Route
+          path="*"
+          element={
+            <h1 className="text-center mt-10 text-3xl font-bold">
+              404 Page Not Found
+            </h1>
+          }
+        />
       </Routes>
     </>
   );
