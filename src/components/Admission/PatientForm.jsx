@@ -1,9 +1,11 @@
 // src/components/PatientAdmission/PatientForm.jsx
 
 import { Formik, Form } from "formik";
-
-import { TextField, Button, MenuItem, Typography } from "@mui/material";
+import { useState } from "react";
+import { TextField, Button, MenuItem, Typography, InputAdornment} from "@mui/material";
 import {AdmissionSchema} from "../../pages/Admission/AdmissionSchema";
+import { IconButton } from "@mui/material";
+import { Visibility, VisibilityOff } from "@mui/icons-material";
 
 
 const PatientForm = () => {
@@ -30,6 +32,9 @@ const PatientForm = () => {
   const handleSubmit = (values) => {
     console.log(values);
   };
+
+  const [showPassword , setShowPassword]=useState(false);
+  const [showConfirmPassword , setShowConfirmPassword]=useState(false);
 
   return (
     <Formik
@@ -92,7 +97,7 @@ const PatientForm = () => {
 
               <TextField
                 fullWidth
-                type="password"
+                type={showPassword ? "text" : "password"}
                 label="Password"
                 name="password"
                 value={values.password}
@@ -100,11 +105,24 @@ const PatientForm = () => {
                 onBlur={handleBlur}
                 error={touched.password && Boolean(errors.password)}
                 helperText={touched.password && errors.password}
+                slotProps={{
+                  input: {
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  },
+                }}
               />
 
               <TextField
                 fullWidth
-                type="password"
+                type={showConfirmPassword ? "text" : "password"}
                 label="Confirm Password"
                 name="confirmPassword"
                 value={values.confirmPassword}
@@ -114,6 +132,19 @@ const PatientForm = () => {
                   touched.confirmPassword && Boolean(errors.confirmPassword)
                 }
                 helperText={touched.confirmPassword && errors.confirmPassword}
+                slotProps={{
+                  input: {
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() =>
+                            setShowConfirmPassword(!showConfirmPassword)}>
+                              {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  },
+                }}
               />
 
               <TextField
