@@ -28,8 +28,8 @@ export const AdmissionSchema = Yup.object({
     .min(6, "Password must be at least 6 characters"),
 
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref("Password")], "Password must match")
-    .required("Confirm Password is required"),
+    .required("Confirm Password is required")
+    .oneOf([Yup.ref("password")], "Password must match"),
 
   gender: Yup.string().required("Gender is required"),
 
@@ -60,4 +60,8 @@ export const AdmissionSchema = Yup.object({
     .required("Disease is required")
     .min(2, "Disease name must be at least 2 characters")
     .max(500, "Disease name must not exceed 100 characters"),
+
+  admissionDate: Yup.string().required("Admission Date id requirede"),
+
+
 });

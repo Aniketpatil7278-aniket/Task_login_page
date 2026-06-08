@@ -72,7 +72,7 @@ const SignupForm = () => {
           <Form className="space-y-6">
             {/* FULL NAME */}
             <div>
-              <label className="font-semibold block mb-2">Full Name</label>
+              <label className="font-semibold block mb-2">Full Name *</label>
 
               <TextField
                 fullWidth
@@ -97,7 +97,7 @@ const SignupForm = () => {
 
             {/* PHONE NUMBER */}
             <div>
-              <label className="font-semibold block mb-2">Phone Number</label>
+              <label className="font-semibold block mb-2">Phone Number *</label>
 
               <TextField
                 fullWidth
@@ -122,7 +122,7 @@ const SignupForm = () => {
 
             {/* USER TYPE */}
             <div>
-              <label className="font-semibold block mb-2">User Type</label>
+              <label className="font-semibold block mb-2">User Type *</label>
 
               <TextField
                 select
@@ -133,7 +133,9 @@ const SignupForm = () => {
                 error={touched.userType && Boolean(errors.userType)}
                 helperText={touched.userType && errors.userType}
               >
-                <MenuItem value="" disabled>Select user type</MenuItem>
+                <MenuItem value="" disabled>
+                  Select user type
+                </MenuItem>
                 <MenuItem value="Patient">Patient</MenuItem>
                 <MenuItem value="Doctor">Doctor</MenuItem>
                 <MenuItem value="Pharmacy">Pharmacy</MenuItem>
@@ -141,79 +143,83 @@ const SignupForm = () => {
               </TextField>
             </div>
 
-              {/* PASSWORD */}
-              <div>
-                <label className="font-semibold block mb-2">Password</label>
+            {/* PASSWORD */}
+            <div>
+              <label className="font-semibold block mb-2">Password *</label>
 
-                <TextField
-                  fullWidth
-                  type={showPassword ? "text" : "password"}
-                  name="password"
-                  placeholder="Create a password"
-                  value={values.password}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={touched.password && Boolean(errors.password)}
-                  helperText={touched.password && errors.password}
-                  slotProps={{
-                    input: {
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <LockIcon />
-                        </InputAdornment>
-                      ),
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton
-                            onClick={() => setShowPassword(!showPassword)}
-                          >
-                            {showPassword ? <VisibilityOff /> : <Visibility />}
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                    },
-                  }}
-                />
-              </div>
+              <TextField
+                fullWidth
+                type={showPassword ? "text" : "password"}
+                name="password"
+                placeholder="Create a password"
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.password && Boolean(errors.password)}
+                helperText={touched.password && errors.password}
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LockIcon />
+                      </InputAdornment>
+                    ),
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() => setShowPassword(!showPassword)}
+                        >
+                          {showPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  },
+                }}
+              />
+            </div>
 
-              {/* CONFIRM PASSWORD */}
-              <div>
-                <label className="font-semibold block mb-2">
-                  Confirm Password
-                </label>
+            {/* CONFIRM PASSWORD */}
+            <div>
+              <label className="font-semibold block mb-2">
+                Confirm Password *
+              </label>
 
-                <TextField
-                  fullWidth
-                  type={showConfirmPassword ? "text" : "password"}
-                  name="confirmPassword"
-                  placeholder="Confirm your password"
-                  value={values.confirmPassword}
-                  onChange={handleChange}
-                  onBlur={handleBlur}
-                  error={
-                    touched.confirmPassword && Boolean(errors.confirmPassword)
-                  }
-                  helperText={touched.confirmPassword && errors.confirmPassword}
-                  slotProps={{
-                    input: {
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <LockIcon />
-                        </InputAdornment>
-                      ),
-                      endAdornment: (
-                        <InputAdornment position="end">
-                          <IconButton
-                            onClick={() =>
-                              setShowConfirmPassword(!showConfirmPassword)
-                            }
-                          >
-                            {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-                          </IconButton>
-                        </InputAdornment>
-                      ),
-                    },
-                  }}
+              <TextField
+                fullWidth
+                type={showConfirmPassword ? "text" : "password"}
+                name="confirmPassword"
+                placeholder="Confirm your password"
+                value={values.confirmPassword}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={
+                  touched.confirmPassword && Boolean(errors.confirmPassword)
+                }
+                helperText={touched.confirmPassword && errors.confirmPassword}
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <LockIcon />
+                      </InputAdornment>
+                    ),
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton
+                          onClick={() =>
+                            setShowConfirmPassword(!showConfirmPassword)
+                          }
+                        >
+                          {showConfirmPassword ? (
+                            <VisibilityOff />
+                          ) : (
+                            <Visibility />
+                          )}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  },
+                }}
               />
             </div>
 

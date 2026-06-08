@@ -29,8 +29,10 @@ const PatientForm = () => {
     admissionDate: "",
   };
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values, { resetForm }) => {
     console.log(values);
+    alert("PatientForm Submit Sucessfull");
+    resetForm();
   };
 
   const [showPassword , setShowPassword]=useState(false);
@@ -53,7 +55,7 @@ const PatientForm = () => {
             <div className="grid md:grid-cols-2 gap-5">
               <TextField
                 fullWidth
-                label="Patient Name"
+                label="Patient Name *"
                 name="patientName"
                 value={values.patientName}
                 onChange={handleChange}
@@ -64,7 +66,7 @@ const PatientForm = () => {
 
               <TextField
                 fullWidth
-                label="User ID"
+                label="User ID *"
                 name="userid"
                 value={values.userid}
                 onChange={handleChange}
@@ -75,7 +77,7 @@ const PatientForm = () => {
 
               <TextField
                 fullWidth
-                label="Email"
+                label="Email *"
                 name="email"
                 value={values.email}
                 onChange={handleChange}
@@ -86,7 +88,7 @@ const PatientForm = () => {
 
               <TextField
                 fullWidth
-                label="Phone Number"
+                label="Phone Number *"
                 name="phone"
                 value={values.phone}
                 onChange={handleChange}
@@ -98,7 +100,7 @@ const PatientForm = () => {
               <TextField
                 fullWidth
                 type={showPassword ? "text" : "password"}
-                label="Password"
+                label="Password *"
                 name="password"
                 value={values.password}
                 onChange={handleChange}
@@ -123,7 +125,7 @@ const PatientForm = () => {
               <TextField
                 fullWidth
                 type={showConfirmPassword ? "text" : "password"}
-                label="Confirm Password"
+                label="Confirm Password *"
                 name="confirmPassword"
                 value={values.confirmPassword}
                 onChange={handleChange}
@@ -138,8 +140,14 @@ const PatientForm = () => {
                       <InputAdornment position="end">
                         <IconButton
                           onClick={() =>
-                            setShowConfirmPassword(!showConfirmPassword)}>
-                              {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                            setShowConfirmPassword(!showConfirmPassword)
+                          }
+                        >
+                          {showConfirmPassword ? (
+                            <VisibilityOff />
+                          ) : (
+                            <Visibility />
+                          )}
                         </IconButton>
                       </InputAdornment>
                     ),
@@ -150,7 +158,7 @@ const PatientForm = () => {
               <TextField
                 select
                 fullWidth
-                label="Gender"
+                label="Gender *"
                 name="gender"
                 value={values.gender}
                 onChange={handleChange}
@@ -164,10 +172,12 @@ const PatientForm = () => {
                 <MenuItem value="Other">Other</MenuItem>
               </TextField>
 
+             
+
               <TextField
                 select
                 fullWidth
-                label="Blood Group"
+                label="Blood Group *"
                 name="bloodGroup"
                 value={values.bloodGroup}
                 onChange={handleChange}
@@ -195,7 +205,7 @@ const PatientForm = () => {
                 fullWidth
                 multiline
                 rows={3}
-                label="Address"
+                label="Address *"
                 name="address"
                 value={values.address}
                 onChange={handleChange}
@@ -206,7 +216,7 @@ const PatientForm = () => {
 
               <TextField
                 fullWidth
-                label="City"
+                label="City *"
                 name="city"
                 value={values.city}
                 onChange={handleChange}
@@ -217,7 +227,7 @@ const PatientForm = () => {
 
               <TextField
                 fullWidth
-                label="State"
+                label="State *"
                 name="state"
                 value={values.state}
                 onChange={handleChange}
@@ -228,7 +238,7 @@ const PatientForm = () => {
 
               <TextField
                 fullWidth
-                label="Pincode"
+                label="Pincode *"
                 name="pincode"
                 value={values.pincode}
                 onChange={handleChange}
@@ -264,7 +274,7 @@ const PatientForm = () => {
 
               <TextField
                 fullWidth
-                label="Disease / Symptoms"
+                label="Disease / Symptoms *"
                 name="disease"
                 value={values.disease}
                 onChange={handleChange}
@@ -284,7 +294,7 @@ const PatientForm = () => {
               <TextField
                 fullWidth
                 type="date"
-                label="Admission Date"
+                label="Admission Date *"
                 name="admissionDate"
                 value={values.admissionDate}
                 onChange={handleChange}

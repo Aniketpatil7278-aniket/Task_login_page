@@ -15,7 +15,6 @@ const LoginBanner = () => {
       sub: "AI Access",
     },
   ];
-
   return (
     <div className="hidden md:flex flex-col justify-between bg-gradient-to-b from-[#10998D] to-[#22C55E] text-white p-12 lg:p-16">
       <div>

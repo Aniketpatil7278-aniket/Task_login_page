@@ -3,11 +3,14 @@
 
 import Header from "../../components/Header/Header";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import { useSelector } from "react-redux";
 
 import PatientHeader from "../../components/Admission/PatientHeader";
 import PatientForm from "../../components/Admission/PatientForm";
 
 const PatientAdmissionPage = () => {
+    const { user } = useSelector((state) => state.auth);
+
   
   return (
     <div className="bg-gray-100 min-h-screen">
@@ -16,7 +19,7 @@ const PatientAdmissionPage = () => {
 
       {/* Main Content */}
       <div className="ml-[280px] p-6">
-        <Header />
+        <Header user={user} />
 
         <div className="mt-6 bg-white rounded-3xl shadow-sm p-8">
           <PatientHeader />

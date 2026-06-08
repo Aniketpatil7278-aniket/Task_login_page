@@ -1,5 +1,3 @@
-// src/pages/Signup/signupSchema.js
-
 import * as Yup from "yup";
 
 export const signupSchema = Yup.object({
@@ -12,12 +10,14 @@ export const signupSchema = Yup.object({
   userType: Yup.string().required("User Type is required"),
 
   password: Yup.string()
+    .trim()
     .required("Password is required")
     .min(6, "Minimum 6 characters"),
 
   confirmPassword: Yup.string()
-    .oneOf([Yup.ref("password")], "Passwords must match")
-    .required("Confirm Password is required"),
+    .trim()
+    .required("Confirm Password is required")
+    .oneOf([Yup.ref("password"), null], "Passwords must match"),
 
   terms: Yup.boolean().oneOf([true], "Accept Terms & Conditions"),
 });

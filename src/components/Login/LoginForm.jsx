@@ -27,7 +27,7 @@ import LoginFooter from "./LoginFooter";
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-
+  
   const navigate = useNavigate();
 
   const { loading, error, isAuthenticated } = useSelector(
@@ -37,6 +37,8 @@ const LoginForm = () => {
   const [showPasswordField, setShowPasswordField] = useState(false);
 
   const [showPassword, setShowPassword] = useState(false);
+
+
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -57,10 +59,6 @@ const LoginForm = () => {
 
     dispatch(loginRequest(values));
   };
-
-
-
-
 
   return (
     <div className="flex items-center justify-center px-5 sm:px-8 md:px-14 py-10 bg-white">
